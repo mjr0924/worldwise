@@ -35,6 +35,66 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "cityName": "Damascus",
+      "country": "Syrian Arab Republic (the)",
+      "emoji": "🇸🇾",
+      "date": "2025-04-19T19:04:21.407Z",
+      "notes": "",
+      "position": {
+        "lat": "33.50418651485953",
+        "lng": "36.31595898765767"
+      },
+      "id": 98443198
+    },
+    {
+      "cityName": "Mashhad",
+      "country": "Iran (Islamic Republic of)",
+      "emoji": "🇮🇷",
+      "date": "2025-04-19T19:07:44.695Z",
+      "notes": "jojo",
+      "position": {
+        "lat": "36.32220683302551",
+        "lng": "59.6184168713618"
+      },
+      "id": 98443199
+    },
+    {
+      "cityName": "Chenaran",
+      "country": "Iran (Islamic Republic of)",
+      "emoji": "🇮🇷",
+      "date": "2025-04-19T19:13:30.790Z",
+      "notes": "",
+      "position": {
+        "lat": "36.712467243386264",
+        "lng": "59.07317120445541"
+      },
+      "id": 98443200
+    },
+    {
+      "cityName": "Torbat-e Jam",
+      "country": "Iran (Islamic Republic of)",
+      "emoji": "🇮🇷",
+      "date": "2025-04-19T19:14:41.234Z",
+      "notes": "shah",
+      "position": {
+        "lat": "35.24138163839721",
+        "lng": "60.6126348518194"
+      },
+      "id": 98443201
+    },
+    {
+      "cityName": "Traspinedo",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2025-04-19T19:28:47.935Z",
+      "notes": "",
+      "position": {
+        "lat": "41.564600721867755",
+        "lng": "-4.459084893473107"
+      },
+      "id": 98443202
     }
   ]
 }

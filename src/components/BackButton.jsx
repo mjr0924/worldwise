@@ -10,7 +10,6 @@ export default function BackButton() {
         navigate(-1);
       }}
     >
-      {" "}
       &larr; Back
     </Button>
   );
