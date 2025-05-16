@@ -5,6 +5,7 @@ import {
   useEffect,
   useReducer,
 } from "react";
+import { supabase } from "../services/supabase";
 
 const BASE_URL = "http://localhost:9000";
 
@@ -71,10 +72,10 @@ function CitiesProvider({ children }) {
       dispatch({ type: "loading" });
 
       try {
-        const res = await fetch(`${BASE_URL}/cities`);
-        const data = await res.json();
+        const { data, error } = await supabase.from("cities").select("*");
+        if (error) throw new Error(error.message);
         dispatch({ type: "cities/loaded", payload: data });
-      } catch {
+      } catch (err) {
         dispatch({
           type: "rejected",
           payload: "There was an error loading cities...",
@@ -108,17 +109,20 @@ function CitiesProvider({ children }) {
     dispatch({ type: "loading" });
 
     try {
-      const res = await fetch(`${BASE_URL}/cities`, {
-        method: "POST",
-        body: JSON.stringify(newCity),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
+      // تبدیل position به position_lat و position_lng
+      const cityToInsert = {
+        ...newCity,
+        position_lat: newCity.position?.lat,
+        position_lng: newCity.position?.lng,
+      };
+      delete cityToInsert.position; // حذف فیلد position اصلی
+      console.log("cityToInsert", cityToInsert); // لاگ برای دیباگ
 
-      dispatch({ type: "city/created", payload: data });
-    } catch {
+      const { data, error } = await supabase.from("cities").insert([cityToInsert]).select();
+      if (error) throw new Error(error.message);
+      dispatch({ type: "city/created", payload: data[0] });
+    } catch (err) {
+      console.error(err); // لاگ خطا برای دیباگ
       dispatch({
         type: "rejected",
         payload: "There was an error creating the city...",
@@ -128,14 +132,11 @@ function CitiesProvider({ children }) {
 
   async function deleteCity(id) {
     dispatch({ type: "loading" });
-
     try {
-      await fetch(`${BASE_URL}/cities/${id}`, {
-        method: "DELETE",
-      });
-
+      const { error } = await supabase.from("cities").delete().eq("id", id);
+      if (error) throw new Error(error.message);
       dispatch({ type: "city/deleted", payload: id });
-    } catch {
+    } catch (err) {
       dispatch({
         type: "rejected",
         payload: "There was an error deleting the city... ",

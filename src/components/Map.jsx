@@ -57,16 +57,22 @@ export default function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
-        {cities.map((city) => (
-          <Marker
-            position={[city.position.lat, city.position.lng]}
-            key={city.id}
-          >
-            <Popup>
-              <span>{city.emoji}</span> <span>{city.cityName}</span>
-            </Popup>
-          </Marker>
-        ))}
+        {cities.map((city) => {
+          // پشتیبانی از هر دو حالت position و position_lat/position_lng
+          const lat = city.position_lat ?? city.position?.lat;
+          const lng = city.position_lng ?? city.position?.lng;
+          if (lat === undefined || lng === undefined) return null;
+          return (
+            <Marker
+              position={[lat, lng]}
+              key={city.id}
+            >
+              <Popup>
+                <span>{city.emoji}</span> <span>{city.cityName}</span>
+              </Popup>
+            </Marker>
+          );
+        })}
         <ChangeCenter position={mapPosition} />
         <DetectClick />
       </MapContainer>

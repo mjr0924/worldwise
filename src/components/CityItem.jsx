@@ -10,7 +10,8 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 export default function CityItem({ city }) {
-  const { cityName, emoji, date, id, position } = city;
+  const { cityName, emoji, date, id, position_lat, position_lng } = city;
+  const position = position_lat !== undefined && position_lng !== undefined ? { lat: position_lat, lng: position_lng } : city.position;
   const { currentCity , deleteCity } = useCities();
 
   function handleClick(e) {
@@ -23,7 +24,7 @@ export default function CityItem({ city }) {
         className={`${styles.cityItem} ${
           id === currentCity.id ? styles["cityItem--active"] : ""
         }`}
-        to={`${id}?lat=${position.lat}&lng=${position.lng}`}
+        to={`${id}?lat=${position?.lat ?? ""}&lng=${position?.lng ?? ""}`}
       >
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
